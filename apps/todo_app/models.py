@@ -60,8 +60,6 @@ class GroupManager(models.Manager):
         errors = {}
         if len(postData['group_name']) < 2:
             errors['group_name'] = "Invalid Group Name! - Must be 2 characters long"
-       
-        
         groupAlreadyExists = Group.objects.filter(group_name = postData['group_name']).exists()
         if (groupAlreadyExists):
             errors['group_name'] = "Group already exists"
@@ -76,10 +74,11 @@ class GroupManager(models.Manager):
         logingroupAlreadyExists = Group.objects.filter(group_name = postData['groupLogin']).exists()
         if not (logingroupAlreadyExists):
             errors['logingroup'] = "Failure to login"
-        group = Group.objects.get(group_name=postData['groupLogin'])
-        pw_to_hash = postData["passwordLogin"]
-        if not bcrypt.checkpw(pw_to_hash.encode(), group.password.encode()):
-            errors['logingroup'] = "Failure to login"
+        else:    
+            group = Group.objects.get(group_name=postData['groupLogin'])
+            pw_to_hash = postData["passwordLogin"]
+            if not bcrypt.checkpw(pw_to_hash.encode(), group.password.encode()):
+                errors['logingroup'] = "Failure to login"
         return errors
 
 
