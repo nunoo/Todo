@@ -11,6 +11,7 @@ import re
 
 
 def index(request):
+    # fdsafdsafdsafdsafdsa
     return render(request, 'todo_app/index.html')
 
 
