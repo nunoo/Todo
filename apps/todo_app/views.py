@@ -11,9 +11,7 @@ import re
 
 
 def index(request):
-    # if not request.session['isloggedin']:
-    #     return redirect('/')
-    # else:
+    # fdsafdsafdsafdsafdsa
     return render(request, 'todo_app/index.html')
 
 
@@ -34,7 +32,6 @@ def addGroup(request):
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value, extra_tags=key)
-        # messages.error(request, request.POST["group_name"], "holdGName")
         return redirect('/groups')
     else:
         group_name = request.POST["group_name"]
@@ -79,9 +76,6 @@ def addUser(request):
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value, extra_tags=key)
-        # messages.error(request, request.POST["first_name"], "holdFName")
-        # messages.error(request, request.POST["last_name"], "holdLName")
-        # messages.error(request, request.POST["email"], "holdEmail")
 
         return redirect('/')
 
@@ -109,14 +103,12 @@ def addUser(request):
 
 
 def loginUser(request):
-    # if len(request.POST['emailLogin']) == 0:
 
-    #     return redirect('/')
     errors = User.objects.login_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value, extra_tags=key)
-        # messages.error(request, request.POST["emailLogin"], "holdLoginEmail")
+
         return redirect('/')
     else:
         current_user = User.objects.get(email=request.POST['emailLogin'])
