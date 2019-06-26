@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'todo_app/css/bootstrap.css'%}">
+    <title>To Do Details</title>
+</head>
+<body>
+    <div class="container">
+
+        <a href="/decline" class="btn btn-primary float-right mr-2 mt-2">Decline</a>
+        <a href="/{{ todo.id }}/complete" class="btn btn-primary float-right mr-2 mt-2">Complete</a>
+        <h1>TO DO { takes in an input }</h1>
+        <h3> { description or extra notes } </h3>
+
+        <p> Create a checklist to help you complete your task? </p>
+
+        { for task in added_tasks }
+
+        <div class="form-check ml-4">
+        
+            <input class="form-check-input" type="checkbox" value="" id="check" name='task' {% if task.completed == True %} checked {% endif %}>
+
+            <label class="form-check-label" for="check">
+            { task }
+            { will populate this field based on the sub-tasks added via the for below ; implement AJAX }
+            </label>
+      
+        </div>
+
+        { endfor }
+
+
+
+        <form action="/add_task" method="POST">
+
+            <div class="form-group">
+                <label for="checkbox"> Add items to checklist! </label>
+
+                <input type="text" class="mt-2 form-control" id="checkbox" placeholder="What do I need ..." name="task">
+                {% if messages %} 
+                    {% for message in messages %} 
+                        {% if message.extra_tags == 'task' %}
+                        <span class="error text-danger small">{{ message }}</span> 
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+                <small id="emailHelp" class="form-text text-muted">Input things that would help you complete your to-do!</small>
+            </div>
+
+
+            <input type="submit" class="btn btn-primary" value="Add to List">
+        </form><!-- end of form -->
+    </div> <!-- end of container -->
+</body>
+</html>
