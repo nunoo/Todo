@@ -31,13 +31,15 @@ class UserManager(models.Manager):
     def login_validator(self, postData):
         errors = {}
         loginemailAlreadyExists = User.objects.filter(email = postData['emailLogin']).exists()
-        if not (loginemailAlreadyExists):
+        if len(postData['emailLogin']) < 1:
+            errors['loginemail_void'] = "Failure to login"
+        elif len(postData['emailLogin']) > 1 and not (loginemailAlreadyExists):
             errors['loginemail'] = "Failure to login"
-        user = User.objects.get(email=postData["emailLogin"])
-        pw_to_hash = postData["passwordLogin"]
-        if not bcrypt.checkpw(pw_to_hash.encode(), user.password.encode()):
-            errors['loginemail'] = "Failure to login"
-    
+        else:
+            user = User.objects.get(email=postData["emailLogin"])
+            pw_to_hash = postData["passwordLogin"]
+            if not bcrypt.checkpw(pw_to_hash.encode(), user.password.encode()):
+                errors['loginemail'] = "Failure to login"
         return errors
 
 class User(models.Model):

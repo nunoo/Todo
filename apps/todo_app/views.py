@@ -34,9 +34,7 @@ def addGroup(request):
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value, extra_tags=key)
-        messages.error(request, request.POST["group_name"], "holdGName")
-        
-
+        # messages.error(request, request.POST["group_name"], "holdGName")
         return redirect('/groups')
     else:
         group_name = request.POST["group_name"]
@@ -60,10 +58,10 @@ def addGroup(request):
 def loginGroup(request):
     errors = Group.objects.group_login_validator(request.POST)
     if len(errors) > 0:
-            for key, value in errors.items():
-                messages.error(request, value, extra_tags=key)
-            messages.error(request, request.POST["groupLogin"], "holdLoginGroup")
-            return redirect('/groups')
+        for key, value in errors.items():
+            messages.error(request, value, extra_tags=key)
+        return redirect('/groups')
+
     else:
         current_group = Group.objects.get(group_name=request.POST['groupLogin'])
         request.session['groupid'] = current_group.id
@@ -81,11 +79,12 @@ def addUser(request):
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value, extra_tags=key)
-        messages.error(request, request.POST["first_name"], "holdFName")
-        messages.error(request, request.POST["last_name"], "holdLName")
-        messages.error(request, request.POST["email"], "holdEmail")
+        # messages.error(request, request.POST["first_name"], "holdFName")
+        # messages.error(request, request.POST["last_name"], "holdLName")
+        # messages.error(request, request.POST["email"], "holdEmail")
 
         return redirect('/')
+
     else:
         first_name = request.POST["first_name"]
         last_name = request.POST["last_name"]
@@ -110,14 +109,14 @@ def addUser(request):
 
 
 def loginUser(request):
-    if len(request.POST['emailLogin']) == 0:
+    # if len(request.POST['emailLogin']) == 0:
 
-        return redirect('/')
+    #     return redirect('/')
     errors = User.objects.login_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value, extra_tags=key)
-        messages.error(request, request.POST["emailLogin"], "holdLoginEmail")
+        # messages.error(request, request.POST["emailLogin"], "holdLoginEmail")
         return redirect('/')
     else:
         current_user = User.objects.get(email=request.POST['emailLogin'])
