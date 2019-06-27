@@ -32,7 +32,9 @@
         <div class="wrapper">
 
             <!-- Start Nav bar -->
-            <nav class="navbar navbar-expand-md navbar-dark bg-primary ">
+            
+            <nav class="navbar navbar-dark bg-primary ">
+                <a href="/logout" class="btn btn-primary float-right">Logout</a>
                 <a class="navbar-brand" href="#">Welcome</a>
                 <a class="navbar-brand">{{ request.session.first_name }}</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
@@ -67,8 +69,7 @@
                             <p>{{request.session.group_name}}</p>
                         </li>
                     </ul>
-                    <a href="/logout" class="btn btn-info">Logout</a>
-
+                    
                 </div>
             </nav>
             <!-- End Nav bar -->
@@ -76,8 +77,12 @@
             <div class="input-group mb-3 mt-4">
                 <div class="input-group-prepend">
 
-                    <button class="btn btn-outline-info dropdown-toggle" type="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">See all ToDo's</button>
+                    <a href class="btn btn-outline-info" type="button">See all ToDo's</a>
+
+                    <a href="/new_todo" class="btn btn-outline-info" type="button">Create New Todo</a>
+                    
+                   
+                    
                     <div class="dropdown-menu">
                         <p>this could be the todo list to show</p>
                     </div>
@@ -88,7 +93,7 @@
                 <!-- todo list -->
                 <div id="todo_list" class="col-5">
                     <div class="list-group text-center">
-                        <a href="#" class="list-group-item list-group-item-action">
+                        <a href="/view" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">Clean the house</h5>
                                 <small>start date</small>
@@ -109,20 +114,41 @@
                             <small>MOM</small>
                         </a>
                         <!-- add a todo list item -->
-                        <form action="#">
+                        <form action="/add_task">
                             <div class="form-group">
-                                <input type="email" class="form-control" id="add_todo" aria-describedby="add_todo"
-                                    placeholder="Add Todo">
+                                <input type="email" class="form-control" id="add_todo" placeholder="Add Todo">
                             </div>
                             <button type="submit" class="btn btn-primary mb-2">Submit</button>
                         </form>
                     </div>
                 </div>
                 <!-- chat-box -->
-                <div id="chat_box" class="col-5 ml-auto">chat-box</div>
+                <div id="chatlioWidgetPlaceholder" class="col-5 ml-auto">
+                    
+                </div>
             </div>
         </div>
     </div>
 </body>
+
+<!-- Slack integration -->
+<script type="text/javascript">
+    window._chatlio = window._chatlio||[];
+    !function(){ var t=document.getElementById("chatlio-widget-embed");
+    if(t&&window.ChatlioReact&&_chatlio.init)
+        return void _chatlio.init(t,ChatlioReact);
+    for(var e=function(t){
+        return function(){_chatlio.push([t].concat(arguments)) }},
+        i=["configure","identify","track","show","hide","isShown","isOnline", "page", "open", "showOrHide"],
+        a=0;
+        a<i.length;a++)_chatlio[i[a]]||(_chatlio[i[a]]=e(i[a]));
+        var n=document.createElement("script"),c=document.getElementsByTagName("script")[0];n.id="chatlio-widget-embed",
+        n.src="https://w.chatlio.com/w.chatlio-widget.js",
+        n.async=!0,n.setAttribute("data-embed-version","2.3");
+       n.setAttribute('data-widget-options', '{"embedInline": true}');
+       n.setAttribute('data-widget-id','c1975524-9ebe-497c-6fac-3688f56f67aa');
+       c.parentNode.insertBefore(n,c);
+    }();
+</script>
 
 </html>

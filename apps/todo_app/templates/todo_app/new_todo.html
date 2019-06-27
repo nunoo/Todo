@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'todo_app/css/bootstrap.css'%}">
+    <title>To Do Details</title>
+</head>
+<body>
+    <div class="container">
+
+        <form action="/add_todo" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="checkbox"> Add a new ToDo !</label>
+
+                <input type="text" class="mt-2 form-control" id="checkbox" placeholder="What do I need to-do" name="task">
+                {% if messages %} 
+                    {% for message in messages %} 
+                        {% if message.extra_tags == 'task' %}
+                        <span class="error text-danger small">{{ message }}</span> 
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+                <small id="emailHelp" class="form-text text-muted">keep the to-do concise! you can add additional info in the decription!</small>
+
+                <input type="text" class="mt-2 form-control" id="checkbox" placeholder="Describe your todo in as much detail as possible" name="task">
+                {% if messages %} 
+                    {% for message in messages %} 
+                        {% if message.extra_tags == 'task' %}
+                        <span class="error text-danger small">{{ message }}</span> 
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+                <small id="emailHelp" class="form-text text-muted">keep the to-do concise! you can add additional info in the decription!</small>
+
+                
+
+            </div>
+
+
+            <input type="submit" class="btn btn-primary" value="Add to List">
+        </form><!-- end of form -->
+    </div> <!-- end of container -->
+</body>
+</html>

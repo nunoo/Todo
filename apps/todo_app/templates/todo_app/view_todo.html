@@ -36,7 +36,7 @@
 
 
         <form action="/add_task" method="POST">
-
+            {% csrf_token %}
             <div class="form-group">
                 <label for="checkbox"> Add items to checklist! </label>
 
