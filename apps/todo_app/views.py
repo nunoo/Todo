@@ -126,3 +126,10 @@ def logout(request):
     request.session.clear()
     request.session['isloggedin'] = False
     return redirect('/')
+
+# ----------------------------------------------------------------------------
+# Route to add task
+# ----------------------------------------------------------------------------
+
+def add_task(request):
+    return redirect("/home")

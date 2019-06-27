@@ -9,8 +9,8 @@
 
     <!-- Bootstrap css-->
     {% load static %}
-    <link rel="stylesheet" href="{% static 'todo_app/css/bootswatch.css' %}">
     <link rel="stylesheet" href="{% static 'todo_app/css/bootstrap.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'todo_app/css/bootswatch.css' %}"> -->
     <link rel="stylesheet" href="{% static 'todo_app/css/style.css' %}">
 
     <!-- Bootstrap js -->
@@ -32,7 +32,8 @@
         <div class="wrapper">
 
             <!-- Start Nav bar -->
-            <nav class="navbar navbar-expand-md navbar-dark bg-primary ">
+            <a href="/logout" class="btn btn-info float-right">Logout</a>
+            <nav class="navbar navbar-dark bg-primary ">
                 <a class="navbar-brand" href="#">Welcome</a>
                 <a class="navbar-brand">{{ request.session.first_name }}</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
@@ -67,7 +68,7 @@
                             <p>{{request.session.group_name}}</p>
                         </li>
                     </ul>
-                    <button class="btn btn-warning my-2 my-sm-0">Logout</button>
+                    
 
                 </div>
             </nav>
@@ -88,7 +89,7 @@
                 <!-- todo list -->
                 <div id="todo_list" class="col-5">
                     <div class="list-group text-center">
-                        <a href="#" class="list-group-item list-group-item-action">
+                        <a href="/view" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">Clean the house</h5>
                                 <small>start date</small>
@@ -109,20 +110,50 @@
                             <small>MOM</small>
                         </a>
                         <!-- add a todo list item -->
-                        <form action="#">
+                        <form action="/add_task">
                             <div class="form-group">
-                                <input type="email" class="form-control" id="add_todo" aria-describedby="add_todo"
-                                    placeholder="Add Todo">
+                                <input type="email" class="form-control" id="add_todo" placeholder="Add Todo">
                             </div>
                             <button type="submit" class="btn btn-primary mb-2">Submit</button>
                         </form>
                     </div>
                 </div>
                 <!-- chat-box -->
-                <div id="chat_box" class="col-5 ml-auto">chat-box</div>
+                <div id="chatlioWidgetPlaceholder" class="col-5 ml-auto">
+                    
+                </div>
             </div>
         </div>
     </div>
 </body>
+
+<!-- Slack integration -->
+<!-- <script type="text/javascript"> 
+    window._chatlio = window._chatlio||[];
+    !function(){ 
+        var t=document.getElementById("chatlio-widget-embed");
+            if(t&&window.ChatlioReact&&_chatlio.init)
+                return void _chatlio.init(t,ChatlioReact);
+            for(var e=function(t){
+                return function(){_chatlio.push([t].concat(arguments)) }},
+                i=["configure","identify","track","show","hide","isShown","isOnline","page"],a=0;a<i.length;a++)_chatlio[i[a]]||_chatlio[i[a]]=e(i[a]));
+            var n=document.createElement("script"),
+                c=document.getElementByTagName("script")[0];
+                n.id="chatlio-widget-embed",
+                n.src="https://w.chatlio.com/w.chatlio-widget.js",
+                n.async=!0,
+                n.setAttribute("data-embed-version","2.3");
+        n.setAttribute('data-widget-id','e9bcdf96-347d-4e1b-7d03-d4b076f447e2');
+        c.parentNode.insertBefore(n,c);
+    }();
+</script> -->
+<script type="text/javascript">
+    window._chatlio = window._chatlio||[];
+    !function(){ var t=document.getElementById("chatlio-widget-embed");if(t&&window.ChatlioReact&&_chatlio.init)return void _chatlio.init(t,ChatlioReact);for(var e=function(t){return function(){_chatlio.push([t].concat(arguments)) }},i=["configure","identify","track","show","hide","isShown","isOnline", "page", "open", "showOrHide"],a=0;a<i.length;a++)_chatlio[i[a]]||(_chatlio[i[a]]=e(i[a]));var n=document.createElement("script"),c=document.getElementsByTagName("script")[0];n.id="chatlio-widget-embed",n.src="https://w.chatlio.com/w.chatlio-widget.js",n.async=!0,n.setAttribute("data-embed-version","2.3");
+       n.setAttribute('data-widget-options', '{"embedInline": true}');
+       n.setAttribute('data-widget-id','c1975524-9ebe-497c-6fac-3688f56f67aa');
+       c.parentNode.insertBefore(n,c);
+    }();
+</script>
 
 </html>
