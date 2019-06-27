@@ -32,8 +32,9 @@
         <div class="wrapper">
 
             <!-- Start Nav bar -->
-            <a href="/logout" class="btn btn-info float-right">Logout</a>
+            
             <nav class="navbar navbar-dark bg-primary ">
+                <a href="/logout" class="btn btn-primary float-right">Logout</a>
                 <a class="navbar-brand" href="#">Welcome</a>
                 <a class="navbar-brand">{{ request.session.first_name }}</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
