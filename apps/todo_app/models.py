@@ -2,9 +2,10 @@ from django.db import models
 import re
 import bcrypt
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
-#-------------------------------------------------------------------------------
-#User
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
+# User
+# -------------------------------------------------------------------------------
+
 
 class UserManager(models.Manager):
     def basic_validator(self, postData):
@@ -19,7 +20,8 @@ class UserManager(models.Manager):
             errors['last_name'] = "Invalid Last Name! - Can only contain alphabetic characters"
         if not EMAIL_REGEX.match(postData['email']):
             errors['email'] = "Invalid Email Address!"
-        emailAlreadyExists = User.objects.filter(email = postData['email']).exists()
+        emailAlreadyExists = User.objects.filter(
+            email=postData['email']).exists()
         if (emailAlreadyExists):
             errors['email'] = "Email already in system"
         if len(postData['password']) < 8:
@@ -30,7 +32,8 @@ class UserManager(models.Manager):
 
     def login_validator(self, postData):
         errors = {}
-        loginemailAlreadyExists = User.objects.filter(email = postData['emailLogin']).exists()
+        loginemailAlreadyExists = User.objects.filter(
+            email=postData['emailLogin']).exists()
         if len(postData['emailLogin']) < 1:
             errors['loginemail_void'] = "Failure to login"
         elif len(postData['emailLogin']) > 1 and not (loginemailAlreadyExists):
@@ -42,15 +45,19 @@ class UserManager(models.Manager):
                 errors['loginemail'] = "Failure to login"
         return errors
 
+
 class User(models.Model):
-    first_name = models.CharField(max_length = 255)
-    last_name = models.CharField(max_length = 255)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
     # member_of
-    email = models.CharField(max_length = 255)
-    password = models.CharField(max_length = 255)
+    # todo_I_received
+    # todo_sent_by
+    email = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
+
     def __repr__(self):
         return f"<User object: FN: {self.first_name} LN: {self.last_name} EM: {self.email} PW: {self.password} ID: ({self.id})>"
 
@@ -60,7 +67,8 @@ class GroupManager(models.Manager):
         errors = {}
         if len(postData['group_name']) < 2:
             errors['group_name'] = "Invalid Group Name! - Must be 2 characters long"
-        groupAlreadyExists = Group.objects.filter(group_name = postData['group_name']).exists()
+        groupAlreadyExists = Group.objects.filter(
+            group_name=postData['group_name']).exists()
         if (groupAlreadyExists):
             errors['group_name'] = "Group already exists"
         if len(postData['password']) < 8:
@@ -71,10 +79,11 @@ class GroupManager(models.Manager):
 
     def group_login_validator(self, postData):
         errors = {}
-        logingroupAlreadyExists = Group.objects.filter(group_name = postData['groupLogin']).exists()
+        logingroupAlreadyExists = Group.objects.filter(
+            group_name=postData['groupLogin']).exists()
         if not (logingroupAlreadyExists):
             errors['logingroup'] = "Failure to login"
-        else:    
+        else:
             group = Group.objects.get(group_name=postData['groupLogin'])
             pw_to_hash = postData["passwordLogin"]
             if not bcrypt.checkpw(pw_to_hash.encode(), group.password.encode()):
@@ -83,14 +92,42 @@ class GroupManager(models.Manager):
 
 
 class Group(models.Model):
-    group_name = models.CharField(max_length = 255)
-    password = models.CharField(max_length = 255)
+    group_name = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
     members = models.ManyToManyField(User, related_name='member_of')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = GroupManager()
+
     def __repr__(self):
         return f'<User object: GN: {self.group_name} Members: {self.members} >'
 
 
-    
+
+
+
+class TaskManager(models.Manager):
+    def task_validator(self, postData):
+        if postData['task'] < 1:
+            errors['task'] = "Please input a task to add!"
+
+class ToDo(models.Model):
+    todo = models.CharField(max_length = 255)
+    desc = models.TextField()
+    start = models.DateTimeField()
+    end = models.DateTimeField()
+    # tasked_by
+    completed = models.BooleanField(default=False)
+    sent_by = models.ForeignKey(User, related_name="todo_I_sent")
+    received_by = models.ForeignKey(User, related_name="todo_I_received")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class SubTask(models.Model):
+    task = models.CharField(max_length=255)
+    completed = models.BooleanField(default=False)
+    task_for = models.ForeignKey(ToDo, related_name="tasked_by")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = TaskManager()
+
