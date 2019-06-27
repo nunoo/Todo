@@ -11,4 +11,7 @@ urlpatterns = [
     url(r'^register/group$', views.addGroup),
     url(r'^login/group$', views.loginGroup),
     url(r'^add_task$', views.add_task),
+    url(r'^view$', views.view),
+    url(r'^new_todo$', views.new_todo),
+    url(r'^add_todo$', views.add_todo),
 ]

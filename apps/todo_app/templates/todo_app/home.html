@@ -77,8 +77,12 @@
             <div class="input-group mb-3 mt-4">
                 <div class="input-group-prepend">
 
-                    <button class="btn btn-outline-info dropdown-toggle" type="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">See all ToDo's</button>
+                    <a href class="btn btn-outline-info" type="button">See all ToDo's</a>
+
+                    <a href="/new_todo" class="btn btn-outline-info" type="button">Create New Todo</a>
+                    
+                   
+                    
                     <div class="dropdown-menu">
                         <p>this could be the todo list to show</p>
                     </div>
@@ -128,28 +132,19 @@
 </body>
 
 <!-- Slack integration -->
-<!-- <script type="text/javascript"> 
-    window._chatlio = window._chatlio||[];
-    !function(){ 
-        var t=document.getElementById("chatlio-widget-embed");
-            if(t&&window.ChatlioReact&&_chatlio.init)
-                return void _chatlio.init(t,ChatlioReact);
-            for(var e=function(t){
-                return function(){_chatlio.push([t].concat(arguments)) }},
-                i=["configure","identify","track","show","hide","isShown","isOnline","page"],a=0;a<i.length;a++)_chatlio[i[a]]||_chatlio[i[a]]=e(i[a]));
-            var n=document.createElement("script"),
-                c=document.getElementByTagName("script")[0];
-                n.id="chatlio-widget-embed",
-                n.src="https://w.chatlio.com/w.chatlio-widget.js",
-                n.async=!0,
-                n.setAttribute("data-embed-version","2.3");
-        n.setAttribute('data-widget-id','e9bcdf96-347d-4e1b-7d03-d4b076f447e2');
-        c.parentNode.insertBefore(n,c);
-    }();
-</script> -->
 <script type="text/javascript">
     window._chatlio = window._chatlio||[];
-    !function(){ var t=document.getElementById("chatlio-widget-embed");if(t&&window.ChatlioReact&&_chatlio.init)return void _chatlio.init(t,ChatlioReact);for(var e=function(t){return function(){_chatlio.push([t].concat(arguments)) }},i=["configure","identify","track","show","hide","isShown","isOnline", "page", "open", "showOrHide"],a=0;a<i.length;a++)_chatlio[i[a]]||(_chatlio[i[a]]=e(i[a]));var n=document.createElement("script"),c=document.getElementsByTagName("script")[0];n.id="chatlio-widget-embed",n.src="https://w.chatlio.com/w.chatlio-widget.js",n.async=!0,n.setAttribute("data-embed-version","2.3");
+    !function(){ var t=document.getElementById("chatlio-widget-embed");
+    if(t&&window.ChatlioReact&&_chatlio.init)
+        return void _chatlio.init(t,ChatlioReact);
+    for(var e=function(t){
+        return function(){_chatlio.push([t].concat(arguments)) }},
+        i=["configure","identify","track","show","hide","isShown","isOnline", "page", "open", "showOrHide"],
+        a=0;
+        a<i.length;a++)_chatlio[i[a]]||(_chatlio[i[a]]=e(i[a]));
+        var n=document.createElement("script"),c=document.getElementsByTagName("script")[0];n.id="chatlio-widget-embed",
+        n.src="https://w.chatlio.com/w.chatlio-widget.js",
+        n.async=!0,n.setAttribute("data-embed-version","2.3");
        n.setAttribute('data-widget-options', '{"embedInline": true}');
        n.setAttribute('data-widget-id','c1975524-9ebe-497c-6fac-3688f56f67aa');
        c.parentNode.insertBefore(n,c);

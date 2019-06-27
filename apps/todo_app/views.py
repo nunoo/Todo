@@ -132,4 +132,27 @@ def logout(request):
 # ----------------------------------------------------------------------------
 
 def add_task(request):
-    return redirect("/home")
+    new_task = SubTask.objects.create(task=request.POST['task'], task_for=request.session['todo.id'])
+
+    return redirect("/view")
+
+# ----------------------------------------------------------------------------
+# Route to view task
+# ----------------------------------------------------------------------------
+
+
+def view(request):
+    return render(request, 'todo_app/view_todo.html')
+
+# ----------------------------------------------------------------------------
+# Route to new todo
+# ----------------------------------------------------------------------------
+
+def new_todo(request):
+    return render(request, 'todo_app/new_todo.html')
+# ----------------------------------------------------------------------------
+# Route to add a todo
+# ----------------------------------------------------------------------------
+
+def add_todo(request):
+    return redirect('/home')
