@@ -5,21 +5,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Todo App</title>
+    <link rel="stylesheet" href="">
+
+    <!-- Bootstrap css-->
     {% load static %}
-    <link rel="stylesheet" href="{% static 'todo_app/css/bootstrap.css'%}">
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static 'todo_app/css/bootswatch.css' %}">
+    <link rel="stylesheet" href="{% static 'todo_app/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'todo_app/css/style.css' %}">
+
+    <!-- Bootstrap js -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+
+    <title>My Todo List</title>
 </head>
 
 <body>
     <div class="container">
-       
-        <h1>hello {{request.session.group_name}} </h1>
+        <div class="wrapper">
 
+            <!-- Start Nav bar -->
+            <nav class="navbar navbar-expand-md navbar-dark bg-primary ">
+                <a class="navbar-brand" href="#">Welcome</a>
+                <a class="navbar-brand">{{ request.session.first_name }}</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+                    aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
+                <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Todo</a>
+                        </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">h</a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown01">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>
+                        <li>
+                            <p>{{request.session.group_name}}</p>
+                        </li>
+                    </ul>
+                    <button class="btn btn-warning my-2 my-sm-0">Logout</button>
+
+                </div>
+            </nav>
+            <!-- End Nav bar -->
+            <!-- See all Todos link -->
+            <div class="input-group mb-3 mt-4">
+                <div class="input-group-prepend">
+
+                    <button class="btn btn-outline-info dropdown-toggle" type="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">See all ToDo's</button>
+                    <div class="dropdown-menu">
+                        <p>this could be the todo list to show</p>
+                    </div>
+                </div>
+            </div>
+            <!-- todo and chat-box row -->
+            <div class="row">
+                <!-- todo list -->
+                <div id="todo_list" class="col-5">
+                    <div class="list-group text-center">
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">Clean the house</h5>
+                                <small>start date</small>
+                                <small>Due date</small>
+                            </div>
+                            <!-- Description of task -->
+                            <p class="mb-1">The whole house is shit. especially your rat hole of a room!!</p>
+                            <!-- (optional) Name of sender -->
+                            <small>MOM</small>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">Clean the house</h5>
+                                <small >start date</small>
+                                <small>Due date</small>
+                            </div>
+                            <p class="mb-1">The whole house is shit. especially your rat hole of a room!!</p>
+                            <small>MOM</small>
+                        </a>
+                        <!-- add a todo list item -->
+                        <form action="#">
+                            <div class="form-group">
+                                <input type="email" class="form-control" id="add_todo" aria-describedby="add_todo"
+                                    placeholder="Add Todo">
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- chat-box -->
+                <div id="chat_box" class="col-5 ml-auto">chat-box</div>
+            </div>
+        </div>
     </div>
 </body>
 
