@@ -140,23 +140,34 @@ def logout(request):
     return redirect('/')
 
 # ----------------------------------------------------------------------------
+# Route to view todo
+# ----------------------------------------------------------------------------
+
+
+def view(request, todo_id):
+    this_todo = ToDo.objects.get(id=todo_id)
+    print(this_todo)
+    these_tasks = this_todo.tasks
+    context = {
+        "this_todo": this_todo,
+        "these_tasks": these_tasks
+    }
+    return render(request, 'todo_app/view_todo.html', context)
+
+# ----------------------------------------------------------------------------
 # Route to add task
 # ----------------------------------------------------------------------------
 
+def add_task(request, todo_id):
+    
+    this_task = SubTask.objects.create(task=request.POST['task'])
+    task_id = this_task.id
 
-def add_task(request):
-    new_task = SubTask.objects.create(
-        task=request.POST['task'], task_for=request.session['todo.id'])
-
-    return redirect("/view")
-
-# ----------------------------------------------------------------------------
-# Route to view task
-# ----------------------------------------------------------------------------
-
-
-def view(request):
-    return render(request, 'todo_app/view_todo.html')
+    this_todo = ToDo.objects.get(id=todo_id)
+    this_todo.tasks.add(this_task)
+    this_todo.save()
+    
+    return redirect("/view/" + str(todo_id))
 
 # ----------------------------------------------------------------------------
 # Route to new todo

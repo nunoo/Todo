@@ -37,39 +37,6 @@
         <a class="navbar-brand" href="/home/{{request.session.groupid}}">Welcome {{ request.session.first_name }}</a>
         <p id="group_name">{{request.session.group_name}}</p>
         <a class="navbar-brand"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Todo</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">h</a>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-                <li>
-                </li>
-            </ul>
-
-        </div>
     </nav>
     <!-- End Nav bar -->
     <!-- See all Todos link -->
@@ -96,7 +63,7 @@
                     <div class="list-group text-center">
                         {% for task in Todos %}
 
-                        <a href="/view" class="list-group-item list-group-item-action">
+                        <a href="/view/{{ task.id }}" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">{{task.todo}}</h5>
                                 <small>start date: {{task.start}}</small>
@@ -123,13 +90,12 @@
 
                 </div>
             </div>
-            <div class="budget">
-                <h5 class="text-center">Group Budget & Expenses (with venmo)</h5>
-                <p class="text-center">To keep track of shared bills and expenses</p>
-                <p class="text-center">Use venmo to send payment to group members</p>
-                
-
-
+        </div>
+        <div class="budget row text-center">
+            <div>
+                <h5>Group Budget & Expenses (with venmo)</h5>
+                <p>To keep track of shared bills and expenses</p>
+                <p>Use venmo to send payment to group members</p>
             </div>
         </div>
     </div>

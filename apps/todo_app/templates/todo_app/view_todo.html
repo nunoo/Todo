@@ -14,29 +14,28 @@
         <a href="/decline" class="btn btn-primary float-right mr-2 mt-2">Decline</a>
         
         <a href="/{{ todo.id }}/complete" class="btn btn-primary float-right mr-2 mt-2">Complete</a>
-        <h1>TO DO { takes in an input }</h1>
-        <h3> { description or extra notes } </h3>
+        
+        <h1 class="text-danger">TO DO: {{this_todo.todo}}</h1>
+        <h3> {{ this_todo.desc }} </h3>
 
-        <p> Create a checklist to help you complete your task? </p>
+        <p> Create a checklist to help you complete your todo? </p>
 
-        { for task in added_tasks }
+        {% for task in these_tasks %}
 
         <div class="form-check ml-4">
         
             <input class="form-check-input" type="checkbox" value="" id="check" name='task' {% if task.completed == True %} checked {% endif %}>
 
             <label class="form-check-label" for="check">
-            { task }
+            {{ task.task }}
             { will populate this field based on the sub-tasks added via the for below ; implement AJAX }
             </label>
       
         </div>
 
-        { endfor }
+        {% endfor %}
 
-
-
-        <form action="/add_task" method="POST">
+        <form action="/add_task/{{ this_todo.id }}" method="POST">
             {% csrf_token %}
             <div class="form-group">
                 <label for="checkbox"> Add items to checklist! </label>
