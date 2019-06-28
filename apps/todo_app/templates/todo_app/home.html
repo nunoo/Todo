@@ -10,7 +10,7 @@
     <!-- Bootstrap css-->
     {% load static %}
     <link rel="stylesheet" href="{% static 'todo_app/css/bootstrap.css' %}">
-    <!-- <link rel="stylesheet" href="{% static 'todo_app/css/bootswatch.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'todo_app/css/bootswatch.css' %}">
     <link rel="stylesheet" href="{% static 'todo_app/css/style.css' %}">
 
     <!-- Bootstrap js -->
@@ -28,61 +28,62 @@
 </head>
 
 <body>
+
+
+    <!-- Start Nav bar -->
+
+    <nav class="navbar navbar-dark bg-primary ">
+        <a href="/logout" class="btn btn-primary float-right">Logout</a>
+        <a class="navbar-brand" href="/home/{{request.session.groupid}}">Welcome {{ request.session.first_name }}</a>
+        <p id="group_name">{{request.session.group_name}}</p>
+        <a class="navbar-brand"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Todo</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">h</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+                <li>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+    <!-- End Nav bar -->
+    <!-- See all Todos link -->
     <div class="container">
         <div class="wrapper">
-
-            <!-- Start Nav bar -->
-            
-            <nav class="navbar navbar-dark bg-primary ">
-                <a href="/logout" class="btn btn-primary float-right">Logout</a>
-                <a class="navbar-brand" href="#">Welcome {{ request.session.first_name }}</a>
-                <p>{{request.session.group_name}}</p>
-                <a class="navbar-brand"></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-                    aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Todo</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">h</a>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                            <div class="dropdown-menu" aria-labelledby="dropdown01">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </li>
-                        <li>
-                        </li>
-                    </ul>
-                    
-                </div>
-            </nav>
-            <!-- End Nav bar -->
-            <!-- See all Todos link -->
             <div class="input-group mb-3 mt-4">
                 <div class="input-group-prepend">
 
                     <a href class="btn btn-outline-info" type="button">See all ToDo's</a>
 
                     <a href="/new_todo" class="btn btn-outline-info" type="button">Create New Todo</a>
-                    
-                   
-                    
+
+
+
                     <div class="dropdown-menu">
                         <p>this could be the todo list to show</p>
                     </div>
@@ -91,7 +92,7 @@
             <!-- todo and chat-box row -->
             <div class="row">
                 <!-- todo list -->
-                <div id="todo_list" class="col-5">
+                <div id="todo_list" class="col-5 ml-0">
                     <div class="list-group text-center">
                         {% for task in Todos %}
 
@@ -105,8 +106,9 @@
                             <p class="mb-1">{{task.desc}}</p>
                             <!-- (optional) Name of sender -->
                             <small>For: {{task.name}}</small>
+                            <a href="/remove_todo/{{task.id}}">Delete</a>
                         </a>
-                      {%endfor%}
+                        {%endfor%}
                         <!-- add a todo list item -->
                         <!-- <form action="/add_task">
                             <div class="form-group">
@@ -117,9 +119,17 @@
                     </div>
                 </div>
                 <!-- chat-box -->
-                <div id="chatlioWidgetPlaceholder" class="col-5 ml-auto" style="height: 800px">
-                    
+                <div id="chatlioWidgetPlaceholder" class="col-5 ml-auto">
+
                 </div>
+            </div>
+            <div class="budget">
+                <h5 class="text-center">Group Budget & Expenses (with venmo)</h5>
+                <p class="text-center">To keep track of shared bills and expenses</p>
+                <p class="text-center">Use venmo to send payment to group members</p>
+                
+
+
             </div>
         </div>
     </div>
@@ -127,21 +137,28 @@
 
 <!-- Slack integration -->
 <script type="text/javascript">
-    window._chatlio = window._chatlio||[];
-    !function(){ var t=document.getElementById("chatlio-widget-embed");
-    if(t&&window.ChatlioReact&&_chatlio.init)
-        return void _chatlio.init(t,ChatlioReact);
-    for(var e=function(t){
-        return function(){_chatlio.push([t].concat(arguments)) }},
-        i=["configure","identify","track","show","hide","isShown","isOnline", "page", "open", "showOrHide"],
-        a=0;
-        a<i.length;a++)_chatlio[i[a]]||(_chatlio[i[a]]=e(i[a]));
-        var n=document.createElement("script"),c=document.getElementsByTagName("script")[0];n.id="chatlio-widget-embed",
-        n.src="https://w.chatlio.com/w.chatlio-widget.js",
-        n.async=!0,n.setAttribute("data-embed-version","2.3");
-       n.setAttribute('data-widget-options', '{"embedInline": true}');
-       n.setAttribute('data-widget-id','c1975524-9ebe-497c-6fac-3688f56f67aa');
-       c.parentNode.insertBefore(n,c);
+    window._chatlio = window._chatlio || [];
+    ! function () {
+        var t = document.getElementById("chatlio-widget-embed");
+        if (t && window.ChatlioReact && _chatlio.init)
+            return void _chatlio.init(t, ChatlioReact);
+        for (var e = function (t) {
+                    return function () {
+                        _chatlio.push([t].concat(arguments))
+                    }
+                },
+                i = ["configure", "identify", "track", "show", "hide", "isShown", "isOnline", "page", "open",
+                    "showOrHide"
+                ],
+                a = 0; a < i.length; a++) _chatlio[i[a]] || (_chatlio[i[a]] = e(i[a]));
+        var n = document.createElement("script"),
+            c = document.getElementsByTagName("script")[0];
+        n.id = "chatlio-widget-embed",
+            n.src = "https://w.chatlio.com/w.chatlio-widget.js",
+            n.async = !0, n.setAttribute("data-embed-version", "2.3");
+        n.setAttribute('data-widget-options', '{"embedInline": true}');
+        n.setAttribute('data-widget-id', 'c1975524-9ebe-497c-6fac-3688f56f67aa');
+        c.parentNode.insertBefore(n, c);
     }();
 </script>
 

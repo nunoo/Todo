@@ -198,3 +198,11 @@ def add_todo(request):
     ToDo.objects.create(
         todo=todo, desc=desc, start=start, end=end, name=name)
     return redirect("/home/" + str(request.session['groupid']))
+
+
+def remove_todo(request, todoid):
+    current_todo = ToDo.objects.get(id=todoid)
+    current_todo.delete()
+    return redirect("/home/" + str(request.session['groupid']))
+
+

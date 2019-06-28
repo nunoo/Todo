@@ -17,4 +17,6 @@ urlpatterns = [
     url(r'^view/(?P<todo_id>\d+)$', views.view),
     url(r'^new_todo$', views.new_todo),
     url(r'^add_todo$', views.add_todo),
+    url(r'^remove_todo/(?P<todoid>\d+)$', views.remove_todo),
+
 ]
