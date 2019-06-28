@@ -30,8 +30,8 @@
                 window.location.href += 'groups';
             } else {
                 // The person is not logged into your app or we are unable to tell.
-                document.getElementById('status').innerHTML = 'Please log ' +
-                    'into this app.';
+                document.getElementById('status').innerHTML = '' +
+                    '';
             }
         }
 
@@ -244,21 +244,27 @@
                     </div>
                     <input type="submit" class="btn btn-outline-info mb-3" value="Login">
                 </form>
+                
+                    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"
+                        class="fb-login-button mt-5" data-width="" data-size="large">
+                    </fb:login-button>
 
-                <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" class="fb-login-button mt-5"
-                    data-width="" data-size="large">
-                </fb:login-button>
-
-                <!-- <FB.logout(function(response) {
+                    <!-- <FB.logout(function(response) {
                     // Person is now logged out
                     });>
                 </FB.logout> -->
 
-                <div id="status">
-                </div>
-                <a href="{% url 'social:begin' 'google-oauth2' %}" class="g-signin2">Login with Google</br></a>
-                <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
-                <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a>
+                    <div id="status">
+                    </div>
+                    <a href="{% url 'social:begin' 'google-oauth2' %}" class="g-signin2"><img class="glogo"
+                            src="{% static 'todo_app/images/googlelogo.png' %}" /></a>
+
+
+
+                    <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+                    <a href="{% url 'social:begin' 'github' %}"><img class="glogo"
+                            src="{% static 'todo_app/images/github.png' %}" /></a>
+                
             </div>
             <div class="col">
 
