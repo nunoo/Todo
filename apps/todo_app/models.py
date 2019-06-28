@@ -111,6 +111,11 @@ class TaskManager(models.Manager):
         if postData['task'] < 1:
             errors['task'] = "Please input a task to add!"
 
+class ToDoManager(models.Manager):
+    def todo_validator(self, postData):
+        if postData['todo'] < 1:
+            errors['todo'] = "Please input a todo to add!"
+
 class ToDo(models.Model):
     todo = models.CharField(max_length = 255)
     desc = models.TextField()
@@ -122,6 +127,7 @@ class ToDo(models.Model):
     received_by = models.ForeignKey(User, related_name="todo_I_received")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    objects = ToDoManager()
 
 class SubTask(models.Model):
     task = models.CharField(max_length=255)
