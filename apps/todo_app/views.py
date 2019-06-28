@@ -155,4 +155,17 @@ def new_todo(request):
 # ----------------------------------------------------------------------------
 
 def add_todo(request):
+    errors = ToDo.objects.todo_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value, extra_tags=key)
+        return redirect('/')
+    else:
+        sent_by = User.objects.get(id=request.session['userid'])
+        todo = request.POST['todo']
+        desc = request.POST['todo_desc']
+        start = request.POST['start']
+        end = request.POST['end']
+
+        ToDo.objects.create(todo=todo, desc=desc, start=start, end=end,)
     return redirect('/home')

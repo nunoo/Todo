@@ -10,41 +10,70 @@
 </head>
 <body>
     <div class="container">
-
+    <a href="/home" class="btn btn-primary float-right mr-2 mt-2">Home</a>
+    <h1> Add a new ToDo !</h1>
+    <div class="row">
+    <div class="col">
         <form action="/add_todo" method="POST">
             {% csrf_token %}
             <div class="form-group">
-                <label for="checkbox"> Add a new ToDo !</label>
-
-                <input type="text" class="mt-2 form-control" id="checkbox" placeholder="What do I need to-do" name="task">
-                {% if messages %} 
-                    {% for message in messages %} 
-                        {% if message.extra_tags == 'task' %}
-                        <span class="error text-danger small">{{ message }}</span> 
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-
-                <small id="emailHelp" class="form-text text-muted">keep the to-do concise! you can add additional info in the decription!</small>
-
-                <input type="text" class="mt-2 form-control" id="checkbox" placeholder="Describe your todo in as much detail as possible" name="task">
-                {% if messages %} 
-                    {% for message in messages %} 
-                        {% if message.extra_tags == 'task' %}
-                        <span class="error text-danger small">{{ message }}</span> 
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-
-                <small id="emailHelp" class="form-text text-muted">keep the to-do concise! you can add additional info in the decription!</small>
-
                 
+                <label class="form-check-label" for="todo">To-Do:</label>
 
+                <input type="text" class="mt-2 form-control" id="todo" placeholder="What do I need to-do" name="todo">
+                {% if messages %} 
+                    {% for message in messages %} 
+                        {% if message.extra_tags == 'task' %}
+                        <span class="error text-danger small">{{ message }}</span> 
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+                <small id="emailHelp" class="form-text text-muted">Keep the to-do concise! You can add additional info in the decription!</small>
+
+                <label class="form-check-label" for="todo_desc">Description:</label>
+
+                <textarea type="text" class="mt-2 form-control" id="todo_desc" placeholder="Describe your todo in as much detail as possible" rows="5"></textarea>
+
+                <small id="emailHelp" class="form-text text-muted">If you'd ike, add a description of your todo!</small>
+
+                <label class="form-check-label" for="start">Start Date:</label>
+
+                <input type="date" class="mt-2 form-control" id="start" placeholder="Describe your todo in as much detail as possible" rows="5">
+
+                <small class="form-text text-muted">When would you like this to-do started?</small>
+
+                <label class="form-check-label" for="end">End Date:</label>
+
+                <input type="date" class="mt-2 form-control" id="end" placeholder="Describe your todo in as much detail as possible" rows="5">
+
+                <small class="form-text text-muted">When would you like this to-do completed by?</small>
             </div>
 
 
-            <input type="submit" class="btn btn-primary" value="Add to List">
+            
+    </div> <!-- end of left column -->
+    <div class="col">
+            <div class="form-group">
+                
+                    <label class="form-check-label" for="todo">To Whom are you sendign this To-Do:</label>
+    
+                    <input type="text" class="mt-2 form-control" id="todo" placeholder="Please enter recipient's first name" name="name">
+                    {% if messages %} 
+                        {% for message in messages %} 
+                            {% if message.extra_tags == 'name' %}
+                            <span class="error text-danger small">{{ message }}</span> 
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+    
+                    <small id="emailHelp" class="form-text text-muted">If more than one person has the same name, don't worry! We'll ask you before we send!</small>
+
+            </div>
+            <input type="submit" class="btn btn-primary" value="Send To-Do">
         </form><!-- end of form -->
+    </div>
+    </div><!-- end of rows -->
     </div> <!-- end of container -->
 </body>
 </html>
