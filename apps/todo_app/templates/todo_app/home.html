@@ -105,8 +105,9 @@
                             <p class="mb-1">{{task.desc}}</p>
                             <!-- (optional) Name of sender -->
                             <small>For: {{task.name}}</small>
+                            <a href="/remove_todo/{{task.id}}">Delete</a>
                         </a>
-                      {%endfor%}
+                        {%endfor%}
                         <!-- add a todo list item -->
                         <!-- <form action="/add_task">
                             <div class="form-group">
@@ -120,6 +121,14 @@
                 <div id="chatlioWidgetPlaceholder" class="col-5 ml-auto">
                     
                 </div>
+            </div>
+            <div class="budget">
+                <h5 class="text-center">Group Budget & Expenses (with venmo)</h5>
+                <p class="text-center">To keep track of shared bills and expenses</p>
+                <p class="text-center">Use venmo to send payment to group members</p>
+                
+
+
             </div>
         </div>
     </div>
