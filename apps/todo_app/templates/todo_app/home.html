@@ -35,8 +35,9 @@
             
             <nav class="navbar navbar-dark bg-primary ">
                 <a href="/logout" class="btn btn-primary float-right">Logout</a>
-                <a class="navbar-brand" href="#">Welcome</a>
-                <a class="navbar-brand">{{ request.session.first_name }}</a>
+                <a class="navbar-brand" href="#">Welcome {{ request.session.first_name }}</a>
+                <p>{{request.session.group_name}}</p>
+                <a class="navbar-brand"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
                     aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -66,7 +67,6 @@
                             </div>
                         </li>
                         <li>
-                            <p>{{request.session.group_name}}</p>
                         </li>
                     </ul>
                     
@@ -93,26 +93,20 @@
                 <!-- todo list -->
                 <div id="todo_list" class="col-5">
                     <div class="list-group text-center">
+                        {% for task in Todos %}
+
                         <a href="/view" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">Clean the house</h5>
-                                <small>start date</small>
-                                <small>Due date</small>
+                                <h5 class="mb-1">{{task.todo}}</h5>
+                                <small>{{task.start}}</small>
+                                <small>{{task.end}}</small>
                             </div>
                             <!-- Description of task -->
-                            <p class="mb-1">The whole house is shit. especially your rat hole of a room!!</p>
+                            <p class="mb-1">{{task.desc}}</p>
                             <!-- (optional) Name of sender -->
-                            <small>MOM</small>
+                            <small>{{task.name}}</small>
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">Clean the house</h5>
-                                <small >start date</small>
-                                <small>Due date</small>
-                            </div>
-                            <p class="mb-1">The whole house is shit. especially your rat hole of a room!!</p>
-                            <small>MOM</small>
-                        </a>
+                      {%endfor%}
                         <!-- add a todo list item -->
                         <!-- <form action="/add_task">
                             <div class="form-group">

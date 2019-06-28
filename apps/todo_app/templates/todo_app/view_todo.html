@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="container">
-        <a href="/home" class="btn btn-info float-right mr-2 mt-2">Home</a>
+        <a href="/home/{{request.session.groupid}}" class="btn btn-info float-right mr-2 mt-2">Home</a>
         <a href="/decline" class="btn btn-primary float-right mr-2 mt-2">Decline</a>
         
         <a href="/{{ todo.id }}/complete" class="btn btn-primary float-right mr-2 mt-2">Complete</a>
