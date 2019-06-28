@@ -37,13 +37,20 @@ body {
 }
 
 .budget{
-    width: 500px;
+    width: 58vw;
     height: 300px;
     background-color: white;
+    margin-top: 50px;
 }
 
 #group_name{
     margin-right:10vw;
     font-size: 2em;
     margin-top: 1vh;
+}
+
+
+#todo_list{
+    overflow-y: scroll;
+    height: 400px;
 }
