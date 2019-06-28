@@ -10,11 +10,12 @@
     <link rel="stylesheet" href="{% static 'todo_app/css/bootstrap.css'%}">
     <link rel="stylesheet" href="{% static 'todo_app/css/style.css'%}">
 
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <!-- im amazing -->
+
 <body class="index">
     <div class="container index">
         <a href="/logout" class="btn btn-outline-danger float-right mt-2">Logout</a>
@@ -25,8 +26,8 @@
                 <h3 class="text-center">Create Group</h3>
                 <form action="/register/group" method="POST" id="regForm" class="RegistrationForm">
                     {% csrf_token %}
-                    
-                    <div class="form-group">
+
+                    <!-- <div class="form-group">
                         <label for="group_name"></label>
                         {% if messages %} 
                             {% for message in messages %} 
@@ -35,31 +36,42 @@
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
-                        <input type="text" name="group_name" id="group_name" class="form-control"
+                        <input type="text" name="group_name" id="group_name" class="form-control" placeholder="group name">
+                    </div> -->
+
+                    <div class="form-group">
+                        <label for="group_Name"></label>
+                        {% if messages %}
+                        {% for message in messages %}
+                        {% if message.extra_tags == 'group_Name' %}
+                        <span class="error text-danger small">{{ message }}</span>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                        <input type="text" name="group_Name" id="groupLogin" class="form-control"
                             placeholder="group name">
                     </div>
-                    
-                    
+
                     <div class="form-group">
                         <label for="password"></label>
-                        {% if messages %} 
-                            {% for message in messages %} 
-                                {% if message.extra_tags == 'password' %}
-                                <span class="error text-danger small">{{ message }}</span> 
-                                {% endif %}
-                            {% endfor %}
+                        {% if messages %}
+                        {% for message in messages %}
+                        {% if message.extra_tags == 'password' %}
+                        <span class="error text-danger small">{{ message }}</span>
+                        {% endif %}
+                        {% endfor %}
                         {% endif %}
                         <input type="password" name="password" id="password" class="form-control"
                             placeholder="password">
                     </div>
                     <div class="form-group">
                         <label for="pwconfirm"></label>
-                        {% if messages %} 
-                            {% for message in messages %} 
-                                {% if message.extra_tags == 'confirmpw' %}
-                                <span class="error text-danger small">{{ message }}</span> 
-                                {% endif %}
-                            {% endfor %}
+                        {% if messages %}
+                        {% for message in messages %}
+                        {% if message.extra_tags == 'confirmpw' %}
+                        <span class="error text-danger small">{{ message }}</span>
+                        {% endif %}
+                        {% endfor %}
                         {% endif %}
                         <input type="password" name="pwconfirm" id="pwconfirm" class="form-control"
                             placeholder="confirm password">
@@ -72,17 +84,18 @@
                 <h3 class="text-center">Join Group</h3>
                 <form action="/login/group" method="POST">
                     {% csrf_token %}
-                    
+
                     <div class="form-group">
                         <label for="groupLogin"></label>
-                        {% if messages %} 
-                            {% for message in messages %} 
-                                {% if message.extra_tags == 'logingroup' %}
-                                <span class="error text-danger small">{{ message }}</span> 
-                                {% endif %}
-                            {% endfor %}
+                        {% if messages %}
+                        {% for message in messages %}
+                        {% if message.extra_tags == 'logingroup' %}
+                        <span class="error text-danger small">{{ message }}</span>
                         {% endif %}
-                        <input type="text" name="groupLogin" id="groupLogin" class="form-control" placeholder="group name">
+                        {% endfor %}
+                        {% endif %}
+                        <input type="text" name="groupLogin" id="groupLogin" class="form-control"
+                            placeholder="group name">
                     </div>
                     <div class="form-group">
                         <label for="passwordLogin"></label>
