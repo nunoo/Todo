@@ -98,13 +98,13 @@
                         <a href="/view" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">{{task.todo}}</h5>
-                                <small>{{task.start}}</small>
-                                <small>{{task.end}}</small>
+                                <small>start date: {{task.start}}</small>
+                                <small> end date: {{task.end}}</small>
                             </div>
                             <!-- Description of task -->
                             <p class="mb-1">{{task.desc}}</p>
                             <!-- (optional) Name of sender -->
-                            <small>{{task.name}}</small>
+                            <small>For: {{task.name}}</small>
                         </a>
                       {%endfor%}
                         <!-- add a todo list item -->
