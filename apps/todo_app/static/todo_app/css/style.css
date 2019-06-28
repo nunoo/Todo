@@ -18,7 +18,21 @@
     text-align: center;
 }
 
-/* body{
-    background-color: darkgrey;
+body {
+    background-color: rgb(233, 235, 238) ;
 
-} */
+}
+
+.container{
+    background-color: rgb(233, 235, 238) ;
+}
+
+.index{
+    background-color: rgb(233, 235, 238);
+}
+
+.glogo{
+    width: 40px;
+    height: 40px;
+}
+

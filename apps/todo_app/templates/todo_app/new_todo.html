@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="container">
-    <a href="/home" class="btn btn-primary float-right mr-2 mt-2">Home</a>
+    <a href="/home/{{request.session.groupid}}" class="btn btn-primary float-right mr-2 mt-2">Home</a>
     <h1> Add a new ToDo !</h1>
     <div class="row">
     <div class="col">
@@ -23,7 +23,7 @@
                 <input type="text" class="mt-2 form-control" id="todo" placeholder="What do I need to-do" name="todo">
                 {% if messages %} 
                     {% for message in messages %} 
-                        {% if message.extra_tags == 'task' %}
+                        {% if message.extra_tags == 'todo' %}
                         <span class="error text-danger small">{{ message }}</span> 
                         {% endif %}
                     {% endfor %}
@@ -33,19 +33,19 @@
 
                 <label class="form-check-label" for="todo_desc">Description:</label>
 
-                <textarea type="text" class="mt-2 form-control" id="todo_desc" placeholder="Describe your todo in as much detail as possible" rows="5"></textarea>
+                <textarea type="text" class="mt-2 form-control" name="todo_desc" id="todo_desc" placeholder="Describe your todo in as much detail as possible" rows="5"></textarea>
 
                 <small id="emailHelp" class="form-text text-muted">If you'd ike, add a description of your todo!</small>
 
                 <label class="form-check-label" for="start">Start Date:</label>
 
-                <input type="date" class="mt-2 form-control" id="start" placeholder="Describe your todo in as much detail as possible" rows="5">
+                <input type="date" class="mt-2 form-control" name="start" id="start" placeholder="Describe your todo in as much detail as possible" rows="5">
 
                 <small class="form-text text-muted">When would you like this to-do started?</small>
 
-                <label class="form-check-label" for="end">End Date:</label>
+                <label class="form-check-label"  for="end">End Date:</label>
 
-                <input type="date" class="mt-2 form-control" id="end" placeholder="Describe your todo in as much detail as possible" rows="5">
+                <input type="date" class="mt-2 form-control" name="end" id="end" placeholder="Describe your todo in as much detail as possible" rows="5">
 
                 <small class="form-text text-muted">When would you like this to-do completed by?</small>
             </div>

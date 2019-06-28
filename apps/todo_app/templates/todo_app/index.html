@@ -8,13 +8,13 @@
     <title>Todo App</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'todo_app/css/bootstrap.css'%}">
-
+    <link rel="stylesheet" href="{% static 'todo_app/css/style.css'%}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!-- <script src="{% static 'ayo_app/js/script.js' %}"></script> -->
 </head>
 
-<body>
+<body class="index">
     <script>
         // This is called with the results from from FB.getLoginStatus().
         function statusChangeCallback(response) {
@@ -27,11 +27,15 @@
             if (response.status === 'connected') {
                 // Logged into your app and Facebook.
                 testAPI();
+<<<<<<< HEAD
                 // window.location.href +='groups';
+=======
+                window.location.href += 'groups';
+>>>>>>> c56cf4bd738094e7639cafc02df2ce0491fb451a
             } else {
                 // The person is not logged into your app or we are unable to tell.
-                document.getElementById('status').innerHTML = 'Please log ' +
-                    'into this app.';
+                document.getElementById('status').innerHTML = '' +
+                    '';
             }
         }
 
@@ -58,7 +62,7 @@
                 //     };
 
                 //     xhr.send('social=facebook&csrfmiddlewaretoken=jpmDEvIvrdk5tZv9kL18rN7mOJfmbIt3&idtoken=' + accessToken);
-                    
+
                 // }
             });
         }
@@ -111,22 +115,65 @@
             });
         }
 
+<<<<<<< HEAD
         function logout() {
             FB.logout(function (response) {
                 setElements(false);
             });
         }
 
+=======
+        gapi.load('auth2', function () {
+        auth2 = gapi.auth2.init();
+
+        // Sign the user in, and then retrieve their ID.
+        auth2.signIn().then(function () {
+            console.log(auth2.currentUser.get().getId());
+        });
+
+    });
+
+
+    if (auth2.isSignedIn.get()) {
+        var profile = auth2.currentUser.get().getBasicProfile();
+        console.log('ID: ' + profile.getId());
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail());
+        }
+
+
+      function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+      }
+>>>>>>> c56cf4bd738094e7639cafc02df2ce0491fb451a
     </script>
 
-    <div class="container">
+    <div class="container index">
+
+        <h1 class="display-4 text-center index mt-2">ToDo</h1>
+
         <div class="row">
-            <div class="col">
+            <div class="col"></div>
+            <div class="col-4 mt-5">
                 <form action="/register" method="POST" id="regForm" class="RegistrationForm">
                     {% csrf_token %}
-                    <h3>Register here!</h3>
-                    <div class="form-group">
-                        <label for="first_name">First name:</label>
+                    <h3 class="text-center">Register</h3>
+                    <div class="form-group text-light">
+                        <label for="first_name"></label>
                         {% if messages %}
                         {% for message in messages %}
                         {% if message.extra_tags == 'first_name' %}
@@ -135,10 +182,10 @@
                         {% endfor %}
                         {% endif %}
                         <input type="text" name="first_name" id="first_name" class="form-control"
-                            placeholder="First name">
+                            placeholder="first name">
                     </div>
-                    <div class="form-group">
-                        <label for="last_name">Last name:</label>
+                    <div class="form-group text-light">
+                        <label for="last_name"></label>
                         {% if messages %}
                         {% for message in messages %}
                         {% if message.extra_tags == 'last_name' %}
@@ -146,10 +193,10 @@
                         {% endif %}
                         {% endfor %}
                         {% endif %}
-                        <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Last name">
+                        <input type="text" name="last_name" id="last_name" class="form-control" placeholder="last name">
                     </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
+                    <div class="form-group text-light">
+                        <label for="email"></label>
                         {% if messages %}
                         {% for message in messages %}
                         {% if message.extra_tags == 'email' %}
@@ -158,10 +205,10 @@
                         {% endfor %}
                         {% endif %}
                         <div id="emailMsg"></div>
-                        <input type="text" name="email" id="email" class="form-control" placeholder="Email">
+                        <input type="text" name="email" id="email" class="form-control" placeholder="email">
                     </div>
-                    <div class="form-group">
-                        <label for="password">Password:</label>
+                    <div class="form-group text-light">
+                        <label for="password"></label>
                         {% if messages %}
                         {% for message in messages %}
                         {% if message.extra_tags == 'password' %}
@@ -170,10 +217,10 @@
                         {% endfor %}
                         {% endif %}
                         <input type="password" name="password" id="password" class="form-control"
-                            placeholder="Password">
+                            placeholder="password">
                     </div>
-                    <div class="form-group">
-                        <label for="pwconfirm">Confirm Password:</label>
+                    <div class="form-group text-light">
+                        <label for="pwconfirm"></label>
                         {% if messages %}
                         {% for message in messages %}
                         {% if message.extra_tags == 'confirmpw' %}
@@ -182,18 +229,18 @@
                         {% endfor %}
                         {% endif %}
                         <input type="password" name="pwconfirm" id="pwconfirm" class="form-control"
-                            placeholder="Confirm Password">
+                            placeholder="confirm password">
                     </div>
-                    <input type="submit" class="btn btn-outline-success" value="Register">
+                    <input type="submit" class="btn btn-outline-info" value="Register">
 
                 </form>
             </div>
-            <div class="col">
+            <div class="col-4 mt-5">
                 <form action="/login" method="POST">
                     {% csrf_token %}
-                    <h3>Login here!</h3>
-                    <div class="form-group">
-                        <label for="emailLogin">Email:</label>
+                    <h3 class="text-center">Login</h3>
+                    <div class="form-group text-light">
+                        <label for="emailLogin"></label>
                         {% if messages %}
                         {% for message in messages %}
                         {% if message.extra_tags == 'loginemail' or message.extra_tags == 'loginemail_void' %}
@@ -201,28 +248,48 @@
                         {% endif %}
                         {% endfor %}
                         {% endif %}
-                        <input type="text" name="emailLogin" id="emailLogin" class="form-control" placeholder="Email">
+                        <input type="text" name="emailLogin" id="emailLogin" class="form-control" placeholder="email">
                     </div>
-                    <div class="form-group">
-                        <label for="passwordLogin">Password:</label>
+                    <div class="form-group text-light">
+                        <label for="passwordLogin"></label>
                         <input type="password" name="passwordLogin" id="passwordLogin" class="form-control"
-                            placeholder="Password">
+                            placeholder="password">
                     </div>
-                    <input type="submit" class="btn btn-outline-success mb-3" value="Login">
+                    <input type="submit" class="btn btn-outline-info mb-3" value="Login">
                 </form>
+                
+                    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"
+                        class="fb-login-button mt-5" data-width="" data-size="large">
+                    </fb:login-button>
 
+<<<<<<< HEAD
                 <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" class="fb-login-button mt-5"
                     data-width="" data-size="large">
                 </fb:login-button>
                 <!-- not sure if we need a logout button here -->
                 <!-- <a id="logout" onclick="logout()">Logout
                 </a> -->
+=======
+                    <!-- <FB.logout(function(response) {
+                    // Person is now logged out
+                    });>
+                </FB.logout> -->
+>>>>>>> c56cf4bd738094e7639cafc02df2ce0491fb451a
 
-                <div id="status">
-                </div>
-                <a href="{% url 'social:begin' 'google-oauth2' %}" class="g-signin2">Login with Google</br></a>
-                <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
-                <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a>
+                    <div id="status">
+                    </div>
+                    <a href="{% url 'social:begin' 'google-oauth2' %}" class="g-signin2"><img class="glogo"
+                            src="{% static 'todo_app/images/googlelogo.png' %}" /></a>
+
+
+
+                    <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+                    <a href="{% url 'social:begin' 'github' %}"><img class="glogo"
+                            src="{% static 'todo_app/images/github.png' %}" /></a>
+                
+            </div>
+            <div class="col">
+
             </div>
         </div>
 

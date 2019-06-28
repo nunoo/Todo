@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import User, Group
+from .models import User, Group, ToDo, SubTask
 from django.contrib import messages
 import bcrypt
 import datetime
@@ -19,8 +19,11 @@ def group(request):
     return render(request, 'todo_app/group.html')
 
 
-def home(request):
-    return render(request, 'todo_app/home.html')
+def home(request, groupid):
+    context = {
+        'Todos': ToDo.objects.all(),
+    }
+    return render(request, 'todo_app/home.html', context)
 
 # ----------------------------------------------------------------------------
 # Route to validate, register group and redirect to home page
@@ -40,12 +43,13 @@ def addGroup(request):
         password = bcrypt.hashpw(pw_to_hash.encode(), bcrypt.gensalt())
         password = password.decode()
 
-        new_group = Group.objects.create(group_name=group_name, password=password)
+        new_group = Group.objects.create(
+            group_name=group_name, password=password)
         request.session['groupid'] = new_group.id
         request.session['group_name'] = new_group.group_name
         request.session['isloggedin'] = True
         request.session.modified = True
-        return redirect("/home")
+        return redirect("/home/" + str(request.session['groupid']))
 
 # ----------------------------------------------------------------------------
 # Route to validate, register group and redirect to home page
@@ -60,11 +64,12 @@ def loginGroup(request):
         return redirect('/groups')
 
     else:
-        current_group = Group.objects.get(group_name=request.POST['groupLogin'])
+        current_group = Group.objects.get(
+            group_name=request.POST['groupLogin'])
         request.session['groupid'] = current_group.id
         request.session['isloggedin'] = True
         request.session['group_name'] = current_group.group_name
-        return redirect("/home")
+        return redirect("/home/" + str(request.session['groupid']))
 
 
 # ----------------------------------------------------------------------------
@@ -117,6 +122,13 @@ def loginUser(request):
         request.session['first_name'] = current_user.first_name
         return redirect("/groups")
 
+def googleLogin(request):
+
+    current_user = User.objects.get(email=request.POST['emailLogin'])
+    request.session['userid'] = current_user.id
+    request.session['isloggedin'] = True
+    request.session['first_name'] = current_user.first_name
+    return redirect("/groups")
 # ----------------------------------------------------------------------------
 # Route to logout user
 # ----------------------------------------------------------------------------
@@ -131,8 +143,10 @@ def logout(request):
 # Route to add task
 # ----------------------------------------------------------------------------
 
+
 def add_task(request):
-    new_task = SubTask.objects.create(task=request.POST['task'], task_for=request.session['todo.id'])
+    new_task = SubTask.objects.create(
+        task=request.POST['task'], task_for=request.session['todo.id'])
 
     return redirect("/view")
 
@@ -148,24 +162,28 @@ def view(request):
 # Route to new todo
 # ----------------------------------------------------------------------------
 
+
 def new_todo(request):
     return render(request, 'todo_app/new_todo.html')
 # ----------------------------------------------------------------------------
 # Route to add a todo
 # ----------------------------------------------------------------------------
 
-def add_todo(request):
-    errors = ToDo.objects.todo_validator(request.POST)
-    if len(errors) > 0:
-        for key, value in errors.items():
-            messages.error(request, value, extra_tags=key)
-        return redirect('/')
-    else:
-        sent_by = User.objects.get(id=request.session['userid'])
-        todo = request.POST['todo']
-        desc = request.POST['todo_desc']
-        start = request.POST['start']
-        end = request.POST['end']
 
-        ToDo.objects.create(todo=todo, desc=desc, start=start, end=end,)
-    return redirect('/home')
+def add_todo(request):
+    # errors = ToDo.objects.todo_validator(request.POST)
+    # if len(errors) > 0:
+    #     for key, value in errors.items():
+    #         messages.error(request, value, extra_tags=key)
+    #     return redirect('/')
+    # else:
+    # sent_by = User.objects.get(id=request.session['userid'])
+    todo = request.POST['todo']
+    desc = request.POST['todo_desc']
+    start = request.POST['start']
+    end = request.POST['end']
+    name = request.POST['name']
+
+    ToDo.objects.create(
+        todo=todo, desc=desc, start=start, end=end, name=name)
+    return redirect("/home/" + str(request.session['groupid']))
