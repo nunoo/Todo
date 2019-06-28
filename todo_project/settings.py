@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 
 # extra login API (Google) permissions
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'group'
+LOGIN_REDIRECT_URL = 'googleLogin'
 
 # Application definition
 

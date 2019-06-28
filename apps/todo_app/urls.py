@@ -5,7 +5,8 @@ from django.conf.urls import url, include
 urlpatterns = [
     url(r'^auth/', include('social_django.urls', namespace='social')),
     url(r'^$', views.index, name='home'),
-    url(r'^groups$', views.group, name='group'),
+    url(r'^googleLogin$', views.googleLogin, name='googleLogin'),
+    url(r'^groups$', views.group),
     url(r'^register$', views.addUser),
     url(r'^login$', views.loginUser, name='login'),
     url(r'^logout$', views.logout),

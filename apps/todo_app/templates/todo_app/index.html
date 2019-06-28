@@ -9,9 +9,10 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'todo_app/css/bootstrap.css'%}">
     <link rel="stylesheet" href="{% static 'todo_app/css/style.css'%}">
+    <!-- javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    <!-- <script src="{% static 'ayo_app/js/script.js' %}"></script> -->
+    <script src="{% static 'ayo_app/js/script.js' %}"></script>
 </head>
 
 <body class="index">
@@ -27,6 +28,7 @@
             if (response.status === 'connected') {
                 // Logged into your app and Facebook.
                 testAPI();
+                // window.location.href +='groups';
                 window.location.href += 'groups';
             } else {
                 // The person is not logged into your app or we are unable to tell.
@@ -109,6 +111,49 @@
                 document.getElementById('status').innerHTML =
                     'Thanks for logging in, ' + response.name + '!';
             });
+        }
+
+        function logout() {
+            FB.logout(function (response) {
+                setElements(false);
+            });
+        }
+
+        gapi.load('auth2', function () {
+            auth2 = gapi.auth2.init();
+
+            // Sign the user in, and then retrieve their ID.
+            auth2.signIn().then(function () {
+                console.log(auth2.currentUser.get().getId());
+            });
+
+        });
+
+
+        if (auth2.isSignedIn.get()) {
+            var profile = auth2.currentUser.get().getBasicProfile();
+            console.log('ID: ' + profile.getId());
+            console.log('Full Name: ' + profile.getName());
+            console.log('Given Name: ' + profile.getGivenName());
+            console.log('Family Name: ' + profile.getFamilyName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail());
+        }
+
+
+        function onSignIn(googleUser) {
+            // Useful data for your client-side scripts:
+            var profile = googleUser.getBasicProfile();
+            console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+            console.log('Full Name: ' + profile.getName());
+            console.log('Given Name: ' + profile.getGivenName());
+            console.log('Family Name: ' + profile.getFamilyName());
+            console.log("Image URL: " + profile.getImageUrl());
+            console.log("Email: " + profile.getEmail());
+
+            // The ID token you need to pass to your backend:
+            var id_token = googleUser.getAuthResponse().id_token;
+            console.log("ID Token: " + id_token);
         }
     </script>
 
@@ -207,31 +252,35 @@
                     </div>
                     <input type="submit" class="btn btn-outline-info mb-3" value="Login">
                 </form>
-                
-                    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"
-                        class="fb-login-button mt-5" data-width="" data-size="large">
-                    </fb:login-button>
+                <!-- FB login button -->
+                <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" class="fb-login-button mt-5"
+                    data-width="" data-size="large">
+                </fb:login-button>
 
-                    <!-- <FB.logout(function(response) {
+                <!-- Google login button -->
+                <a href="{% url 'social:begin' 'google-oauth2' %}" class="g-signin2"><img class="glogo"
+                        src="{% static 'todo_app/images/googlelogo.png' %}" /></a>
+
+                <!-- GitHub login button -->
+                <a href="{% url 'social:begin' 'github' %}"><img class="glogo"
+                        src="{% static 'todo_app/images/github.png' %}" /></a>
+
+                <div id="status">
+                </div>
+                <!-- not sure if we need a logout button here -->
+                <!-- <a id="logout" onclick="logout()">Logout
+                </a> -->
+                <!-- <FB.logout(function(response) {
                     // Person is now logged out
                     });>
                 </FB.logout> -->
 
-                    <div id="status">
-                    </div>
-                    <a href="{% url 'social:begin' 'google-oauth2' %}" class="g-signin2"><img class="glogo"
-                            src="{% static 'todo_app/images/googlelogo.png' %}" /></a>
-
-
-
-                    <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
-                    <a href="{% url 'social:begin' 'github' %}"><img class="glogo"
-                            src="{% static 'todo_app/images/github.png' %}" /></a>
-                
-            </div>
-            <div class="col">
+                <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
 
             </div>
+            <!-- <div class="col">
+
+            </div> -->
         </div>
 
     </div>

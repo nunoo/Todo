@@ -122,6 +122,13 @@ def loginUser(request):
         request.session['first_name'] = current_user.first_name
         return redirect("/groups")
 
+def googleLogin(request):
+
+    current_user = User.objects.get(email=request.POST['emailLogin'])
+    request.session['userid'] = current_user.id
+    request.session['isloggedin'] = True
+    request.session['first_name'] = current_user.first_name
+    return redirect("/groups")
 # ----------------------------------------------------------------------------
 # Route to logout user
 # ----------------------------------------------------------------------------
