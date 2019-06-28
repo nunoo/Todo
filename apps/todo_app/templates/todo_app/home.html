@@ -95,7 +95,7 @@
                     <div class="list-group text-center">
                         {% for task in Todos %}
 
-                        <a href="/view" class="list-group-item list-group-item-action">
+                        <a href="/view/{{ task.id }}" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">{{task.todo}}</h5>
                                 <small>start date: {{task.start}}</small>
@@ -117,7 +117,7 @@
                     </div>
                 </div>
                 <!-- chat-box -->
-                <div id="chatlioWidgetPlaceholder" class="col-5 ml-auto">
+                <div id="chatlioWidgetPlaceholder" class="col-5 ml-auto" style="height: 800px">
                     
                 </div>
             </div>
